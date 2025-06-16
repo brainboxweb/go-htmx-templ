@@ -1,0 +1,22 @@
+package components
+
+import (
+	"github.com/brainboxweb/go-htmx/models"
+	"strconv"
+)
+
+templ Country(country models.Country) {
+	@Base(country.Name){
+		<div>
+			<div class="country">
+				<h2>
+					{country.Name}
+				</h2>
+				<p>{country.Capital}</p>
+				<p>{country.Continent}</p>
+				<p>{strconv.Itoa(country.Population)}</p>
+				<p>{country.Description}</p>
+			</div>
+		</div>
+	}
+}

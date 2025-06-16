@@ -1,0 +1,37 @@
+package components
+
+import (
+	"github.com/brainboxweb/go-htmx/models"
+)
+
+
+
+templ Countries (countries []models.Country){
+	@Base("Countries"){
+		<div>
+			<input 
+				type="search"
+				name="search" 
+				hx-get="/search"
+				hx-trigger="keyup changed delay:1s"
+				hx-target="#countries"
+			/>
+		</div>
+		@CountryList(countries)
+	}
+}
+
+templ CountryList(countries []models.Country) {
+	<div id="countries">
+		for _, country := range countries {
+			<div class="country">
+				<h2>
+					<a href={templ.SafeURL("/countries/"+country.Name)} >{country.Name}</a>
+				</h2>
+				<p>{country.Capital}</p>
+				<p>{country.Continent}</p>
+				
+			</div>
+		}
+	</div>
+}
