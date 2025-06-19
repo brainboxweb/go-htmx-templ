@@ -1,0 +1,72 @@
+package components
+
+import (
+	"github.com/brainboxweb/go-htmx/models"
+)
+
+templ GetContacts (page models.Page){
+	@Base("Contacts"){
+		<div id="gary">
+			@ContactForm(page.Form)
+			@ContactList(page.Data)
+		</div>
+	}
+}
+
+templ JustContacts (page models.Page){
+	<div id="gary">
+		@ContactForm(page.Form)
+		@ContactList(page.Data)
+	</div>
+}
+
+templ ContactForm (formData models.FormData){
+	{{
+		errorEmail := ""
+		if val, ok := formData.Errors["email"]; ok {
+			errorEmail = val
+		}
+	}}
+	<form  hx-post="/contacts"   hx-swap="outerHTML" hx-target="#gary" >
+		<label for="name">Name:</label>
+		@input("name", formData.Values["name"])
+		<label for="name">Email:</label>
+		@input("email", formData.Values["email"])
+		if errorEmail != "" {
+			<div style="color:red">{ errorEmail } thiue is an errororororor</div>
+		}
+		<button type="submit">Go</button>
+	</form>
+
+<script>
+document.addEventListener("DOMContentLoaded", (event) => {
+    document.body.addEventListener('htmx:beforeSwap', function(evt) {
+        if (evt.detail.xhr.status === 422) {
+            // allow 422 responses to swap as we are using this as a signal that
+            // a form was submitted with bad data and want to rerender with the
+            // errors
+            //
+            // set isError to false to avoid error logging in console
+            evt.detail.shouldSwap = true;
+            evt.detail.isError = false;
+        }
+    });
+})
+</script>
+}
+
+
+templ input (name, value string) {
+	<input value={ value } type="text" id={ name } name={ name } />
+}
+
+templ ContactList (contacts models.Data){
+	<ul id="contacts">
+	for _, contact := range contacts.Contacts {
+		<li>
+		Name: <strong>{ contact.Name }</strong><br/>
+		Email: { contact.Email }
+		</li>
+	}
+	</ul>
+}
