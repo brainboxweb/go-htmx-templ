@@ -60,6 +60,8 @@ func PostContacts(ctx echo.Context) error {
 	name := ctx.FormValue("name")
 	email := ctx.FormValue("email")
 
+
+
 	// check for dupes
 	if data.HasEmail(email) {
 		formData := models.NewFormData()
@@ -78,8 +80,11 @@ func PostContacts(ctx echo.Context) error {
 		return component.Render(ctx.Request().Context(), writer)
 	}
 
-	data.Contacts = append(data.Contacts, models.NewContact(name, email))
-
+	// Validate
+	if !(name == "" && email == "") {
+		data.Contacts = append(data.Contacts, models.NewContact(name, email))
+	}
+	
 	pg := models.Page{Data: data, Form: models.FormData{}}
 	component := components.JustContacts(pg)
 	return component.Render(ctx.Request().Context(), ctx.Response().Writer)

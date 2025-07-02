@@ -6,9 +6,25 @@ import (
 
 templ GetContacts (page models.Page){
 	@Base("Contacts"){
-		<div id="gary">
-			@ContactForm(page.Form)
-			@ContactList(page.Data)
+		<div class="flex">
+			<div class="flex-1 lg-flex-auto lg-w-7/12  my-8">
+				<div id="gary">
+					@ContactForm(page.Form)
+					@ContactList(page.Data)
+				</div>
+			</div>
+			<div class="flex-1  lg-flex-auto ">
+				<div class="flex-1  lg-flex-auto  lg-w-7/12 rounded bg-sky-200 p-4 m-8">
+					<h3 class="text-xl">What's going on here?</h3>
+					<p>Here's the process:</p>
+					<ul class="list-disc pl-4">
+						<li>Enter a <em>new</em> contact</li>
+						<li>HTMX handles the button click event, fetching the updated list from the server</li>
+						<li>Re-enter the <em>same</em> contact</li>
+						<li>Again, HTMX handles the button click event, the server detects the duplicate record and returns the error information</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	}
 }
@@ -21,21 +37,26 @@ templ JustContacts (page models.Page){
 }
 
 templ ContactForm (formData models.FormData){
-	{{
+	<p>Enter a new contact:</p>
+	<form  hx-post="/contacts"   hx-swap="outerHTML" hx-target="#gary" class="border rounded border p-8 m	y-8 ">
+		<label for="name">Name:</label>
+		<input value={  formData.Values["name"] } type="text" id="name" name="name" class="border border-black" />
+		<br />
+		<label for="email">Email:</label>
+		<input value={ formData.Values["name"] } type="text" id="email" name="email" class="border border-black" />
+		<br />
+		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Go</button>
+		
+	{{		
 		errorEmail := ""
 		if val, ok := formData.Errors["email"]; ok {
 			errorEmail = val
 		}
 	}}
-	<form  hx-post="/contacts"   hx-swap="outerHTML" hx-target="#gary" >
-		<label for="name">Name:</label>
-		@input("name", formData.Values["name"])
-		<label for="name">Email:</label>
-		@input("email", formData.Values["email"])
-		if errorEmail != "" {
-			<div style="color:red">{ errorEmail } thiue is an errororororor</div>
-		}
-		<button type="submit">Go</button>
+	if errorEmail != "" {
+		<div style="color:red">{ errorEmail } this is an error! (duplicate entry)</div>
+	}
+		
 	</form>
 
 <script>
@@ -55,15 +76,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 </script>
 }
 
-
-templ input (name, value string) {
-	<input value={ value } type="text" id={ name } name={ name } />
-}
-
 templ ContactList (contacts models.Data){
 	<ul id="contacts">
 	for _, contact := range contacts.Contacts {
-		<li>
+		<li  class="mt-4">
 		Name: <strong>{ contact.Name }</strong><br/>
 		Email: { contact.Email }
 		</li>

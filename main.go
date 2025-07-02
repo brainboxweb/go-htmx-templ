@@ -9,6 +9,8 @@ import (
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
+	e.Static("/static", "static")
+
 	e.GET("", handlers.Home)
 
 	// Countries

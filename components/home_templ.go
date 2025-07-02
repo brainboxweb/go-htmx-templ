@@ -29,7 +29,25 @@ func Home() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Fun with HTMX... and Templ</h1><ul><li><a href=\"countries\">Countries search</a></li><li><a href=\"contacts\">Contacts form</a></li></ul>")
+		templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"flex\"><div class=\"flex-1 lg-flex-auto lg-w-7/12  py-4 my-8\"><p>Pick from the following:</p><ul class=\"list-disc pl-4\"><li><a href=\"countries\" class=\"hover:underline\">Countries search</a></li><li><a href=\"contacts\" class=\"hover:underline\">Contacts form</a></li></ul></div><div class=\"flex-1  lg-flex-auto  lg-w-5/12 rounded bg-sky-200 p-4 m-8\"><h2>Fun with HTMX (and Templ and Tailwind)</h2><p>I've been wanting to try HTMX for a while. And HTMX led me to  Templ, and Templ led me to Tailwind.</p></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = Base("Fun with HTMX").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
