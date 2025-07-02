@@ -42,20 +42,20 @@ func Base(title string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><script src=\"https://unpkg.com/htmx.org@2.0.4\"></script></head><body><nav><a href=\"/\">Home</a></nav><h1>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><script src=\"https://unpkg.com/htmx.org@2.0.4\"></script><link href=\"static/css/main.css\" rel=\"stylesheet\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap\" rel=\"stylesheet\"></head><body><header class=\"container py-6 flex items-center justify-between\"><nav><ul class=\"flex items-center gap-4\"><li><a href=\"/\">Home</a></li><li><a href=\"/countries\">Countries</a></li><li><a href=\"/contacts\">Contacts</a></li></ul></nav></header><main><section id=\"hero\" class=\"\"><div class=\"container relative z-10\"><h1 class=\"text-5xl font-back \">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/base.templ`, Line: 16, Col: 13}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/base.templ`, Line: 31, Col: 43}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</h1>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</h1></div></section><section class=\"container relative z-10 py-4\"><div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -63,7 +63,7 @@ func Base(title string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</div></section></main></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

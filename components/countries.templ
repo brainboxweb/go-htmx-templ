@@ -8,30 +8,49 @@ import (
 
 templ Countries (countries []models.Country){
 	@Base("Countries"){
-		<div>
-			<input 
-				type="search"
-				name="search" 
-				hx-get="/search"
-				hx-trigger="keyup changed delay:1s"
-				hx-target="#countries"
-			/>
+		<div class="flex">
+			<div class="flex-1 lg-flex-auto lg-w-7/12  py-4 my-8">
+				<div>
+					<label for="country-filter">Filter the list:</label><br />
+					<input 
+						id="country-filter"
+						type="search"
+						name="search" 
+						hx-get="/search"
+						hx-trigger="keyup changed delay:1s"
+						hx-target="#countries"
+						class="border border-black"
+					/>
+				</div>
+				<div>
+					@CountryList(countries)
+				</div>
+			</div>
+			<div class="flex-1  lg-flex-auto ">
+				<div class="flex-1  lg-flex-auto  lg-w-7/12 rounded bg-sky-200 p-4 m-8">
+					<h3 class="text-xl">What's going on here?</h3>
+					<p>Here's the process:</p>
+					<ul class="list-disc pl-4">
+						<li>Enter one or more letters</li>
+						<li>After a small delay, HTMX sends a 
+						request to the server for the <em>filtered</em> list</li>
+						<li>(Clear the textbox to restore the full list.)</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-		@CountryList(countries)
 	}
 }
 
 templ CountryList(countries []models.Country) {
 	<div id="countries">
 		for _, country := range countries {
-			<div class="country">
-				<h2>
-					<a href={templ.SafeURL("/countries/"+country.Name)} >{country.Name}</a>
-				</h2>
-				<p>{country.Capital}</p>
-				<p>{country.Continent}</p>
-				
-			</div>
+			<ul class="country">
+				<li class="py-2 text-3xl">
+					<a href={templ.SafeURL("/countries/"+country.Name)} >{country.Name}</a> - 
+					{country.Capital}, {country.Continent}
+				</li>
+			</ul>
 		}
 	</div>
 }

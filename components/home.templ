@@ -1,10 +1,20 @@
 package components
 
 templ Home() {
-	<h1>Fun with HTMX... and Templ</h1>
-
-	<ul>
-		<li><a href="countries">Countries search</a></li>
-		<li><a href="contacts">Contacts form</a></li>
-	</ul>
+	@Base("Fun with HTMX"){
+		<div class="flex">
+			<div class="flex-1 lg-flex-auto lg-w-7/12  py-4 my-8">
+				<p>Pick from the following:</p>
+				<ul class="list-disc pl-4">
+					<li><a href="countries" class="hover:underline">Countries search</a></li>
+					<li><a href="contacts"  class="hover:underline">Contacts form</a></li>
+				</ul>
+			</div>
+			<div class="flex-1  lg-flex-auto  lg-w-5/12 rounded bg-sky-200 p-4 m-8">
+				<h2>Fun with HTMX (and Templ and Tailwind)</h2>
+				<p>I've been wanting to try HTMX for a while. And HTMX led me to 
+				Templ, and Templ led me to Tailwind.</p>
+			</div>
+		</div>
+	}
 }
